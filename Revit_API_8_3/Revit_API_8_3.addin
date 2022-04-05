@@ -5,6 +5,6 @@
 		<AddInId>F667EC25-1B17-40A5-B9DD-D1C3FC501883</AddInId>
 		<FullClassName>Revit_API_8_3.Main</FullClassName>
 		<VendorId>ADSK</VendorId>
-		<Text>RevitAPI 8-1 Экспорт в изображение</Text>
+		<Text>RevitAPI 8-3 Экспорт в изображение (PNG)</Text>
 	</AddIn>
 </RevitAddIns>
