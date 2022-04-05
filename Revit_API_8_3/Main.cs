@@ -19,18 +19,37 @@ namespace Revit_API_8_3
         {
             Document doc = commandData.Application.ActiveUIDocument.Document;
 
-            // косвенное(!!) получение необходимого вида:
-            View theView = new FilteredElementCollector(doc)
-                .OfCategory(BuiltInCategory.OST_Views)
-                .WhereElementIsNotElementType()
-                .Cast<View>()                
-                .FirstOrDefault(); 
+            #region//косвенное(!!) получение необходимого Вида
+
+            // - по Категории:
+
+            //View theView = new FilteredElementCollector(doc)
+            //    .OfCategory(BuiltInCategory.OST_Views)
+            //    .WhereElementIsNotElementType()
+            //    .Cast<View>()
+            //    .FirstOrDefault();
+
+            // - по Классу:
+
+            //View theView = new FilteredElementCollector(doc)
+            //    .OfClass(typeof(View))
+            //    .WhereElementIsNotElementType()
+            //    .Cast<View>()
+            //    .FirstOrDefault();
 
             //TaskDialog.Show("theViewName", theView.Name);
+            #endregion
+
+            //косвенное(!!) получение необходимого Плана по Классу:
+            ViewPlan theViewPlan = new FilteredElementCollector(doc)
+               .OfClass(typeof(ViewPlan))
+               .WhereElementIsNotElementType()
+               .Cast<ViewPlan>()
+               .FirstOrDefault();
 
             List<ElementId> viewIDs = new List<ElementId>();
 
-            viewIDs.Add(theView.Id);
+            viewIDs.Add(theViewPlan.Id);
 
             //TaskDialog.Show($"viewIDs", viewIDs[0].ToString());
 
@@ -38,7 +57,7 @@ namespace Revit_API_8_3
             {
                 ZoomType = ZoomFitType.FitToPage,
                 PixelSize = 2024,
-                FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\" + theView.Name,
+                FilePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\" + theViewPlan.Name,
                 FitDirection = FitDirectionType.Horizontal,
                 HLRandWFViewsFileType = ImageFileType.PNG,
                 ImageResolution = ImageResolution.DPI_600,
