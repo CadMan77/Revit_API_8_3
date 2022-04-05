@@ -45,7 +45,22 @@ namespace Revit_API_8_3
                .OfClass(typeof(ViewPlan))
                .WhereElementIsNotElementType()
                .Cast<ViewPlan>()
+               .Where(p => p.ViewType == ViewType.FloorPlan) // excludes ceiling Plans
                .FirstOrDefault();
+
+            //List <ViewPlan> floorPlans = new FilteredElementCollector(doc)
+            //    .OfClass(typeof(ViewPlan))
+            //    .WhereElementIsNotElementType()
+            //    .Cast<ViewPlan>()
+            //    .Where (p => p.ViewType == ViewType.FloorPlan) // excludes ceiling Plans
+            //    .ToList();
+
+            //string fpNames = string.Empty;
+            //foreach (var fp in floorPlans)
+            //{
+            //    fpNames += fp.Name +Environment.NewLine;
+            //}
+            //TaskDialog.Show($"FPs:{floorPlans.Count}", fpNames);
 
             List<ElementId> viewIDs = new List<ElementId>();
 
