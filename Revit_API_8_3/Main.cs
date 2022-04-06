@@ -40,13 +40,12 @@ namespace Revit_API_8_3
             //TaskDialog.Show("theViewName", theView.Name);
             #endregion
 
-            //косвенное(!!) получение необходимого Плана по Классу:
+            //Пполучение необходимого Плана(этажа) по Классу,ТипуВида и имени:
             ViewPlan theViewPlan = new FilteredElementCollector(doc)
-               .OfClass(typeof(ViewPlan))
+               .OfClass(typeof(ViewPlan)) // планы (этажа(пола)/потолка/конструктивный)
                .WhereElementIsNotElementType()
                .Cast<ViewPlan>()
-               .Where(p => p.ViewType == ViewType.FloorPlan) // excludes ceiling Plans
-               .FirstOrDefault();
+               .FirstOrDefault(vp => vp.ViewType == ViewType.FloorPlan && vp.Name.Equals("Level 1"));
 
             //List <ViewPlan> floorPlans = new FilteredElementCollector(doc)
             //    .OfClass(typeof(ViewPlan))
